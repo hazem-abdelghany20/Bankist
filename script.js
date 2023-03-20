@@ -1,3 +1,5 @@
+//hardcoding the accounts details for simplicity
+
 var account1 = {
   owner: "Hazem Abdelghany",
   movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
@@ -38,7 +40,6 @@ const account2 = {
   locale: "en-US",
 };
 var myName = "Hazem";
-console.log(myName);
 const accounts = [account1, account2];
 
 // Elements
@@ -87,6 +88,7 @@ const money = function (mov, locale, currency) {
 };
 const displayMovements = function (acc) {
   containerMovements.innerHTML = "";
+  //get the movements of the acc and foreach record get the data and i to retrieve the date of it
   acc.movements.forEach(function (mov, i) {
     const thatDate = new Date(acc.movementsDates[i]);
     const now = new Date();
@@ -97,7 +99,7 @@ const displayMovements = function (acc) {
     };
 
     let dateNow = new Intl.DateTimeFormat(acc.locale, options).format(thatDate);
-
+    //getn the type of the movement and then put it in an html code to insert it into the website
     const type = mov >= 0 ? "deposit" : "withdrawal";
     let html = `<div class="movements_row">
   <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
@@ -107,7 +109,7 @@ const displayMovements = function (acc) {
     containerMovements.insertAdjacentHTML("afterbegin", html);
   });
 };
-
+// the user name is created by having the initials of the user lower cased
 const user = "Hazem Abdelghany";
 const createUsername = function (accs) {
   accs.forEach(function (acc) {
@@ -121,6 +123,7 @@ const createUsername = function (accs) {
 
 createUsername(accounts);
 
+//this method is to calculate the balance by adding (reducing) the movements array
 const calculateBalance = function (acc) {
   labelBalance.textContent = ``;
   acc.balance = acc.movements.reduce((acc, val) => acc + val, 0);
@@ -167,6 +170,7 @@ const calcDisplaySummary = function (acc) {
   calculateInterest(acc);
 };
 let timer;
+// sets the 5 minutes timer
 setTimer = function () {
   let time = 300;
 
